@@ -1,0 +1,38 @@
+﻿@model IEnumerable<IndoorJungle.Web.Data.Models.MyPlant>
+
+@{
+    ViewData["Title"] = "MyPlants";
+}
+
+<h1>MyPlants</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plant)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plant.Id)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
