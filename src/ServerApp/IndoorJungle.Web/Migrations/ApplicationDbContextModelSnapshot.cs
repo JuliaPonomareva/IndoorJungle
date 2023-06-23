@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace IndoorJungle.Web.Data.Migrations
+namespace IndoorJungle.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -36,15 +36,16 @@ namespace IndoorJungle.Web.Data.Migrations
                     b.Property<int>("PlantId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlantId");
 
                     b.HasIndex("UserId", "PlantId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("MyPlants");
                 });
@@ -102,6 +103,9 @@ namespace IndoorJungle.Web.Data.Migrations
                     b.Property<DateTimeOffset>("DateUpdated")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("EventId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -111,11 +115,8 @@ namespace IndoorJungle.Web.Data.Migrations
                     b.Property<int>("PlantTaskTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
@@ -157,11 +158,9 @@ namespace IndoorJungle.Web.Data.Migrations
 
             modelBuilder.Entity("IndoorJungle.Web.Data.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<DateTimeOffset>("DateCreated")
                         .HasColumnType("datetimeoffset");
@@ -169,15 +168,7 @@ namespace IndoorJungle.Web.Data.Migrations
                     b.Property<DateTimeOffset>("DateUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("DeviceId")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DeviceId")
-                        .IsUnique()
-                        .HasFilter("[DeviceId] IS NOT NULL");
 
                     b.ToTable("PlantUsers");
                 });
@@ -394,9 +385,7 @@ namespace IndoorJungle.Web.Data.Migrations
 
                     b.HasOne("IndoorJungle.Web.Data.Models.User", "User")
                         .WithMany("MyPlants")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Plant");
 
@@ -419,9 +408,7 @@ namespace IndoorJungle.Web.Data.Migrations
 
                     b.HasOne("IndoorJungle.Web.Data.Models.User", "User")
                         .WithMany("PlantTasks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Plant");
 

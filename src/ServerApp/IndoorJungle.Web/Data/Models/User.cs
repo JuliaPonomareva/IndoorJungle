@@ -3,12 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IndoorJungle.Web.Data.Models
 {
-    [Index(nameof(DeviceId), IsUnique = true)]
     public class User
     {
-        public int Id { get; set; }
         [MaxLength(250)]
-        public string DeviceId { get; set; }
+        public string Id { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset DateUpdated { get; set; }
 

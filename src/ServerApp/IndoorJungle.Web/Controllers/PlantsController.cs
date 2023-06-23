@@ -10,10 +10,12 @@ namespace IndoorJungle.Web.Controllers
     public class PlantsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public PlantsController(ApplicationDbContext context)
+        public PlantsController(ApplicationDbContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
         // GET: Plants
@@ -58,8 +60,7 @@ namespace IndoorJungle.Web.Controllers
                 if (file != null)
                 {
                     plant.Image = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                    System.IO.Directory.CreateDirectory("images");
-                    using var stream = new FileStream(Path.Combine("images", plant.Image), FileMode.CreateNew, FileAccess.Write);
+                    using var stream = new FileStream(Path.Combine(_env.WebRootPath, "images", plant.Image), FileMode.CreateNew, FileAccess.Write);
                     await file.CopyToAsync(stream);
                 }
                 
@@ -107,7 +108,7 @@ namespace IndoorJungle.Web.Controllers
                     if (file != null)
                     {
                         plant.Image = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                        using var stream = new FileStream(Path.Combine("images", plant.Image), FileMode.CreateNew, FileAccess.Write);
+                        using var stream = new FileStream(Path.Combine(_env.WebRootPath, "images", plant.Image), FileMode.CreateNew, FileAccess.Write);
                         await file.CopyToAsync(stream);
                     }
 

@@ -17,10 +17,10 @@ export default function Navigate() {
             name="Mainn"
             component={Mainn}
             options={{
-                title:'Главная страница',
-                headerStyle:{backgroundColor: 'green', height:90},
-                headerTitleStyle:{fontWeight:'light', textAlign: 'auto'},
-        }}
+                    title:'Главная страница',
+                    headerStyle:{backgroundColor: 'green', height:90},
+                    headerTitleStyle:{fontWeight:'light', textAlign: 'auto'},
+            }}
             />
            
             <Stack.Screen
