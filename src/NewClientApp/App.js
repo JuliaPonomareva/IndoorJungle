@@ -39,7 +39,7 @@ import {
 global.__reanimatedWorkletInit = () => { };
 const Drawer = createDrawerNavigator();
 
-const apiHost = 'http://localhost:5259';
+const apiHost = 'http://192.168.1.120:5259';
 const apiPlantsPath = '/api/plants/{userId}';
 const apiPlantPath = '/api/plants/{userId}/{plantId}';
 const apiPlantTasksPath = '/api/planttasks/{userId}';
@@ -48,12 +48,12 @@ const apiPlantTaskTypesPath = '/api/planttasktypes';
 
 async function getUserId() {
   try {
-    let value = await AsyncStorage.getItem('userId2');
+    let value = await AsyncStorage.getItem('userId');
     if (value) {
       return value;
     }
     value = uuid.v4();
-    await AsyncStorage.setItem('userId2', value);
+    await AsyncStorage.setItem('userId', value);
     return value;
   } catch (error) {
     Alert.alert('Ошибка', '', [{ text: 'Ok' }]);
