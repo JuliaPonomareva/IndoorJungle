@@ -39,7 +39,7 @@ import {
 global.__reanimatedWorkletInit = () => { };
 const Drawer = createDrawerNavigator();
 
-const apiHost = 'http://192.168.1.164:5259';
+const apiHost = 'http://localhost:5259';
 const apiPlantsPath = '/api/plants/{userId}';
 const apiPlantPath = '/api/plants/{userId}/{plantId}';
 const apiPlantTasksPath = '/api/planttasks/{userId}';
